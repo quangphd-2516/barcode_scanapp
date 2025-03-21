@@ -5,4 +5,7 @@
 ## Kết quả:
 
 ![home](./assets/home.jpg)
-![home](./assets/scan.jpg)
+![scan](./assets/scan.jpg)
+![Payment](./assets/Payment.jpg)
+![Cart](./assets/Cart.jpg)
+![SuccessScreen](./assets/SuccessScreen.jpg)

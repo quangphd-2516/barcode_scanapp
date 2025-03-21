@@ -1,54 +1,54 @@
 import { View, StyleSheet, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 import Home from "./Home";
 import Scan from "./Scan";
-import { Ionicons } from "@expo/vector-icons";
+import Cart from "./Cart";
+import Payment from "./Payment";
+
+// Component giả định cho các tab chưa có
+const Notifications = () => <View><Text>Notifications Screen</Text></View>;
+const History = () => <View><Text>History Screen</Text></View>;
 
 const Tab = createBottomTabNavigator();
 
 const Nav = () => {
     return (
-
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarShowLabel: false,
-                tabBarStyle: styles.tabBar,
+                tabBarStyle: route.name === "Scan" ? { display: "none" } : styles.tabBar, // Ẩn thanh tab cho Scan
                 tabBarIcon: ({ focused }) => {
-                    let iconName;
-                    let badge = null;
-
-                    if (route.name === "Home") {
-                        iconName = "home-outline";
-                        return (
-                            <View style={[styles.iconContainer, focused && styles.activeIcon]}>
-                                <Ionicons name={iconName} size={28} color={focused ? "#5A78F0" : "#C4C4C4"} />
-                            </View>
-                        );
-                    } else if (route.name === "Notifications") {
-                        iconName = "notifications-outline";
-                        badge = <View style={styles.badge} />;
-                    } else if (route.name === "Scan") iconName = "scan-outline";
-                    else if (route.name === "History") iconName = "time-outline";
-                    else if (route.name === "Cart") iconName = "cart-outline";
+                    const iconConfig = {
+                        Home: "home-outline",
+                        Notifications: "notifications-outline",
+                        Scan: "scan-outline",
+                        History: "time-outline",
+                        Cart: "cart-outline",
+                    };
+                    const iconName = iconConfig[route.name];
+                    const hasBadge = route.name === "Notifications";
 
                     return (
-                        <View style={styles.iconWrapper}>
-                            <Ionicons name={iconName} size={28} color={"#C4C4C4"} />
-                            {badge}
+                        <View style={[styles.iconContainer, focused && styles.activeIcon]}>
+                            <Ionicons
+                                name={iconName}
+                                size={28}
+                                color={focused ? "#F08F5F" : "#C4C4C4"}
+                            />
+                            {hasBadge && <View style={styles.badge} />}
                         </View>
                     );
                 },
             })}
         >
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Notifications" component={Home} />
-            <Tab.Screen name="Scan" component={Scan} options={{ tabBarStyle: { display: "none" }, }} />
-            <Tab.Screen name="History" component={Home} />
-            <Tab.Screen name="Cart" component={Home} />
+            <Tab.Screen name="Notifications" component={Notifications} />
+            <Tab.Screen name="Scan" component={Scan} />
+            <Tab.Screen name="History" component={History} />
+            <Tab.Screen name="Cart" component={Cart} />
         </Tab.Navigator>
-
     );
 };
 
@@ -58,45 +58,29 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 20,
         right: 20,
-        height: 118,
+        height: 80,
         backgroundColor: "#fff",
         borderRadius: 20,
-        shadowColor: "#000",
-        shadowOpacity: 0.1,
-        shadowRadius: 10,
-        elevation: 5,
-        borderTopWidth: 0,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around",
     },
-    // iconWrapper: { position: "relative" },
-    iconWrapper: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        transform: [{ translateY: -30 }]
-    },
-
     iconContainer: {
         width: 50,
         height: 50,
         borderRadius: 16,
         alignItems: "center",
         justifyContent: "center",
-        transform: [{ translateY: -30 }]
+        transform: [{ translateY: 15 }],
     },
-    activeIcon: { backgroundColor: "#E3F2FD" },
+    activeIcon: {
+        backgroundColor: "#F6E3DB", // Nền khi tab được chọn
+    },
     badge: {
         position: "absolute",
-        top: 0,
-        bottom: 0,
-        right: 0,
+        top: 5,
+        right: 5,
         width: 8,
         height: 8,
         borderRadius: 4,
         backgroundColor: "red",
-
     },
 });
 
