@@ -1,11 +1,5 @@
-## Đỗ Mạnh Cường
+## Nguyễn Trọng Quang D17CNPM5
 
-## MSV: 22810340201
+## MSV: 22810310333 
 
-## Kết quả:
 
-![home](./assets/home.jpg)
-![scan](./assets/scan.jpg)
-![Payment](./assets/Payment.jpg)
-![Cart](./assets/Cart.jpg)
-![SuccessScreen](./assets/SuccessScreen.jpg)
